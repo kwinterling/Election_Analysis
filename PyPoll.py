@@ -24,6 +24,7 @@ candidate_options = []
 # Dictionary for candidate votes
 
 candidate_votes = {}
+candidate_results = []
 
 # Winning candidate tracker
 winning_candidate = ""
@@ -85,7 +86,7 @@ for candidate_name in candidate_votes:
         formatted_percentage = formatted_percentage + ".0"
 
     # Print candidate name and percentage of votes
-    print(f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n")
+    candidate_results.append(f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n")
 
     # Determine winning vote count and candidate
     # Determine if votes is greater than winning count
@@ -105,4 +106,19 @@ winning_candidate_summary = (
     f"-------------------------\n")
 
 print(winning_candidate_summary)
+election_results = (
+        f"\nElection Results\n"
+        f"-------------------------\n"
+        f"Total Votes: {total_votes:,}\n"
+        f"-------------------------\n")
+print(election_results, end="")
+
+# Write results to file
+with open(file_to_save, "w") as outfile:
+    outfile.write(election_results)
+
+    for cnd in candidate_results:
+        outfile.write(cnd)
+    
+    outfile.write(winning_candidate_summary)
 
